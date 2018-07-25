@@ -12,11 +12,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8080")
 @AllArgsConstructor
-@RestController
 @Slf4j
-@RequestMapping("/breweries")
+@RestController
+@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/api/breweries")
 public class BreweryController {
 
     BreweryRepository breweryRepository;
