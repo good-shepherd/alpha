@@ -56,7 +56,7 @@ public class PlaceController {
         BeerMenu menu = beerMenuRepository.save(req.toEntity(
                 placeRepository.getOne(id),
                 beerRepository.getOne(req.getBeerId())
-        ));
+        )); // three queries? really?
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/places/{id}/menu")
                 .buildAndExpand(menu.getId().getPlaceId()).toUri();
