@@ -26,11 +26,13 @@ public class BeerController {
     BeerRepository beerRepository;
     BreweryRepository breweryRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping
     public List<BeerRes> findAllBeers() {
         return beerRepository.findAll().stream().map(BeerRes::new).collect(Collectors.toList());
     } // pagination
 
+    @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public BeerRes findOneBeer(@PathVariable(value = "id") Long id) {
         return new BeerRes(beerRepository.getOne(id));
@@ -54,4 +56,5 @@ public class BeerController {
     }
 
     // add if-else into methods for other responses when the request fails
+    // add a patch method
 }

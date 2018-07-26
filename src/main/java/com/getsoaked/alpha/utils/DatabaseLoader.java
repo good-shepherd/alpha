@@ -17,8 +17,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // beerRepository.deleteAll();
-        // breweryRepository.deleteAll();
         breweries();
         beers();
     }
@@ -103,6 +101,13 @@ public class DatabaseLoader implements CommandLineRunner {
                 .phone("02-465-5208")
                 .x(37.542863)
                 .y(127.049393)
+                .build());
+        breweryRepository.save(Brewery.builder()
+                .address("경기도 성남시 분당구 판교동 운중로225번길 14-3, 101호(판교동)")
+                .name("더부스 판교 브루어리")
+                .phone("02-711-4723")
+                .x(37.391235)
+                .y(127.089032)
                 .build());
     }
 }
