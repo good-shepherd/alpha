@@ -29,7 +29,7 @@ public class Beer extends DateAudit {
     @Column(name = "beer_description")
     private String description;
 
-    @OneToMany(mappedBy = "beer")
+    @OneToMany(mappedBy = "beer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BeerMenu> beerMenus = new HashSet<>();
 
     @ManyToOne

@@ -32,7 +32,8 @@ public class Brewery extends DateAudit {
     @Column(name = "brewery_phone")
     private String phone;
 
-    @OneToMany(mappedBy = "brewery")
+    // Because the controller will always return beers along with the brewery, LAZY would be meaningless.
+    @OneToMany(mappedBy = "brewery", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Beer> beers = new HashSet<>();
 
     @Builder

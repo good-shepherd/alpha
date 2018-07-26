@@ -1,6 +1,6 @@
 package com.getsoaked.alpha.entities;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +12,13 @@ import java.io.Serializable;
 @Setter
 @Embeddable
 @NoArgsConstructor
-@AllArgsConstructor
 public class CompositePK implements Serializable {
     private Long beerId;
     private Long placeId;
+
+    @Builder
+    public CompositePK(Long beerId, Long placeId) {
+        this.beerId = beerId;
+        this.placeId = placeId;
+    }
 }

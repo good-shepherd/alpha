@@ -21,7 +21,7 @@ public class Place extends DateAudit {
     private String name;
 
     @Column(name = "place_type")
-    private int type;
+    private PlaceType type;
 
     @Column(name = "place_location_x")
     private double x;
@@ -33,13 +33,13 @@ public class Place extends DateAudit {
     private String address;
 
     @Column(name = "place_phone")
-    private int phone;
+    private String phone;
 
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BeerMenu> beerMenus = new HashSet<>();
 
     @Builder
-    public Place(String name, int type, double x, double y, String address, int phone) {
+    public Place(String name, PlaceType type, double x, double y, String address, String phone) {
         this.name = name;
         this.type = type;
         this.x = x;

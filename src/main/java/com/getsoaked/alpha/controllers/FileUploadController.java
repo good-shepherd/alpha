@@ -34,7 +34,9 @@ public class FileUploadController {
     @GetMapping("/api/test")
     public void testApi() {
         Brewery brewery = breweryRepository.getOne(1l);
+        System.out.println("----------------------");
         System.out.println(brewery.getName());
+        System.out.println("----------------------");
         brewery.getBeers().forEach(o -> System.out.println(o.getName()));
     }
 }

@@ -43,7 +43,7 @@ public class BeerController {
     public ResponseEntity saveBeer(@RequestBody BeerReq req) {
         Beer beer = beerRepository.save(req.toEntity(breweryRepository.getOne(req.getBreweryId())));
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/beers/{id}")
+                .fromCurrentContextPath().path("/api/beers/{id}")
                 .buildAndExpand(beer.getId()).toUri();
         return ResponseEntity.created(location).build();
     }

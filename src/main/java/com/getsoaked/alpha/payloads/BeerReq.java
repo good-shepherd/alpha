@@ -5,11 +5,9 @@ import com.getsoaked.alpha.entities.BeerType;
 import com.getsoaked.alpha.entities.Brewery;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class BeerReq {
 
     private String name;
