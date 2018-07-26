@@ -13,7 +13,7 @@ public class BeerMenu extends DateAudit {
     @EmbeddedId
     @AttributeOverrides({
             @AttributeOverride(name = "beerId", column = @Column(name = "beer_id")),
-            @AttributeOverride(name = "pubId", column = @Column(name = "pub_id"))})
+            @AttributeOverride(name = "placeId", column = @Column(name = "place_id"))})
     private CompositePK id;
 
     @ManyToOne
@@ -21,8 +21,8 @@ public class BeerMenu extends DateAudit {
     private Beer beer;
 
     @ManyToOne
-    @JoinColumn(name = "pub_id", insertable = false, updatable = false)
-    private Pub pub;
+    @JoinColumn(name = "place_id", insertable = false, updatable = false)
+    private Place place;
 
     private float draftPPM;
 
@@ -33,10 +33,10 @@ public class BeerMenu extends DateAudit {
     private int status;
 
     @Builder
-    public BeerMenu(CompositePK id, Beer beer, Pub pub, float draftPPM, float canPPM, float bottlePPM, int status) {
+    public BeerMenu(CompositePK id, Beer beer, Place place, float draftPPM, float canPPM, float bottlePPM, int status) {
         this.id = id;
         this.beer = beer;
-        this.pub = pub;
+        this.place = place;
         this.draftPPM = draftPPM;
         this.canPPM = canPPM;
         this.bottlePPM = bottlePPM;

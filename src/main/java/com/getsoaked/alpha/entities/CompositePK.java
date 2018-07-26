@@ -15,5 +15,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CompositePK implements Serializable {
     private Long beerId;
-    private Long pubId;
+    private Long placeId;
 }

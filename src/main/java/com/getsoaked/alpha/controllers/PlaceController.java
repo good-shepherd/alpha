@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("/api/pubs")
-public class PubController {
+@RequestMapping("/api/places")
+public class PlaceController {
 }

@@ -9,37 +9,37 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "pubs")
-public class Pub extends DateAudit {
+@Table(name = "places")
+public class Place extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pub_id")
+    @Column(name = "place_id")
     private Long id;
 
-    @Column(name = "pub_name")
+    @Column(name = "place_name")
     private String name;
 
-    @Column(name = "pub_type")
+    @Column(name = "place_type")
     private int type;
 
-    @Column(name = "pub_location_x")
+    @Column(name = "place_location_x")
     private double x;
 
-    @Column(name = "pub_location_y")
+    @Column(name = "place_location_y")
     private double y;
 
-    @Column(name = "pub_address")
+    @Column(name = "place_address")
     private String address;
 
-    @Column(name = "pub_phone")
+    @Column(name = "place_phone")
     private int phone;
 
-    @OneToMany(mappedBy = "pub")
+    @OneToMany(mappedBy = "place")
     private Set<BeerMenu> beerMenus = new HashSet<>();
 
     @Builder
-    public Pub(String name, int type, double x, double y, String address, int phone) {
+    public Place(String name, int type, double x, double y, String address, int phone) {
         this.name = name;
         this.type = type;
         this.x = x;
