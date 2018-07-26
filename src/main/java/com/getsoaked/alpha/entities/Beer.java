@@ -24,7 +24,7 @@ public class Beer extends DateAudit {
     private float abv;
 
     @Column(name = "beer_type")
-    private int type;
+    private BeerType type;
 
     @Column(name = "beer_description")
     private String description;
@@ -37,7 +37,7 @@ public class Beer extends DateAudit {
     private Brewery brewery;
 
     @Builder
-    public Beer(String name, float abv, int type, String description, Brewery brewery) {
+    public Beer(String name, float abv, BeerType type, String description, Brewery brewery) {
         this.name = name;
         this.abv = abv;
         this.type = type;

@@ -18,7 +18,7 @@ public class BeerRes {
         this.id = beer.getId();
         this.name = beer.getName();
         this.abv = beer.getAbv();
-        this.type = beer.getType();
+        this.type = beer.getType().getValue();
         this.description = beer.getDescription();
         this.brewery = beer.getBrewery().getName();
     }
