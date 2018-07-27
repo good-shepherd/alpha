@@ -1,6 +1,10 @@
 package com.getsoaked.alpha.entities;
 
-import lombok.*;
+import com.getsoaked.alpha.payloads.BeerReq;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -29,12 +33,20 @@ public class Beer extends DateAudit {
     @Column(name = "beer_description")
     private String description;
 
-    @OneToMany(mappedBy = "beer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "beer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<BeerMenu> beerMenus = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "brewery_id")
     private Brewery brewery;
+
+    public void updateBeer(BeerReq req, Brewery brewery) {
+        this.name = req.getName();
+        this.abv = req.getAbv();
+        this.type = req.getType();
+        this.description = req.getDescription();
+        this.brewery = brewery;
+    }
 
     @Builder
     public Beer(String name, float abv, BeerType type, String description, Brewery brewery) {

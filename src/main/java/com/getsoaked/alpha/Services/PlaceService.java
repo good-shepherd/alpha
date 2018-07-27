@@ -1,6 +1,7 @@
 package com.getsoaked.alpha.Services;
 
 import com.getsoaked.alpha.entities.BeerMenu;
+import com.getsoaked.alpha.entities.CompositePK;
 import com.getsoaked.alpha.entities.Place;
 import com.getsoaked.alpha.payloads.MenuReq;
 import com.getsoaked.alpha.payloads.MenuRes;
@@ -37,6 +38,27 @@ public class PlaceService {
         return new PlaceRes(placeRepository.getOne(id));
     }
 
+    @Transactional
+    public URI savePlace(PlaceReq req) {
+        Place place = placeRepository.save(req.toEntity());
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/api/places/{id}")
+                .buildAndExpand(place.getId()).toUri();
+        return location;
+    }
+
+    @Transactional
+    public void updatePlace(Long id, PlaceReq req) {
+        Place place = placeRepository.getOne(id);
+        place.updatePlace(req);
+        placeRepository.save(place);
+    }
+
+    @Transactional
+    public void deletePlace(Long id) {
+        placeRepository.deleteById(id);
+    }
+
     @Transactional(readOnly = true)
     public List<MenuRes> getMenuByPlaceId(Long id) {
         return beerMenuRepository.getAllByPlaceId(id).stream().map(MenuRes::new).collect(Collectors.toList());
@@ -53,14 +75,11 @@ public class PlaceService {
                 .buildAndExpand(menu.getId().getPlaceId()).toUri();
         return location;
     }
-
     @Transactional
-    public URI savePlace(PlaceReq req) {
-        Place place = placeRepository.save(req.toEntity());
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/places/{id}")
-                .buildAndExpand(place.getId()).toUri();
-        return location;
+    public void deleteMenuById(Long id, Long bid) {
+        beerMenuRepository.deleteById(CompositePK.builder()
+                .placeId(id)
+                .beerId(bid)
+                .build());
     }
-
 }

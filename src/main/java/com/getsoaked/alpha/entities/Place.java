@@ -1,5 +1,6 @@
 package com.getsoaked.alpha.entities;
 
+import com.getsoaked.alpha.payloads.PlaceReq;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class Place extends DateAudit {
     @Column(name = "place_phone")
     private String phone;
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<BeerMenu> beerMenus = new HashSet<>();
 
     @Builder
@@ -46,5 +47,14 @@ public class Place extends DateAudit {
         this.y = y;
         this.address = address;
         this.phone = phone;
+    }
+
+    public void updatePlace(PlaceReq req) {
+        this.name = req.getName();
+        this.type = req.getType();
+        this.x = req.getX();
+        this.y = req.getY();
+        this.address = req.getAddress();
+        this.phone = req.getPhone();
     }
 }

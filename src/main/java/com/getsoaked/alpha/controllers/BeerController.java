@@ -34,6 +34,12 @@ public class BeerController {
         return ResponseEntity.created(beerService.saveBeer(req)).build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity updateBeer(@PathVariable(value = "id") Long id, @RequestBody BeerReq req) {
+        beerService.updateBeer(id, req);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBeer(@PathVariable(value = "id") Long id) {
         beerService.deleteBeer(id); // should add description to body

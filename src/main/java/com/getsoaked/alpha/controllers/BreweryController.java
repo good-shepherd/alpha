@@ -34,11 +34,17 @@ public class BreweryController {
         return ResponseEntity.created(breweryService.saveBrewery(req)).build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity updateBrewery(@PathVariable(value = "id") Long id, @RequestBody BreweryReq req) {
+        breweryService.updateBrewery(id, req);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBrewery(@PathVariable(value = "id") Long id) {
         breweryService.deleteBrewery(id);
         return ResponseEntity.ok().build(); // should add description to body
-    }
+    } // when deleting, it deletes all of beers of the brewery's. this needs to be refactored to disable the brewery not to delete.
 
     // add if-else into methods for other responses when the request fails
     // add a patch method

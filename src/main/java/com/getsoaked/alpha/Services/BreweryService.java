@@ -39,8 +39,16 @@ public class BreweryService {
     }
 
     @Transactional
+    public void updateBrewery(Long id, BreweryReq req) {
+        Brewery brewery = breweryRepository.getOne(id);
+        brewery.updateBrewery(req);
+        breweryRepository.save(brewery);
+    }
+
+    @Transactional
     public void deleteBrewery(Long id) {
         breweryRepository.deleteById(id);
+
     }
 
 }

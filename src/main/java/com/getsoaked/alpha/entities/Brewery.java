@@ -1,6 +1,10 @@
 package com.getsoaked.alpha.entities;
 
-import lombok.*;
+import com.getsoaked.alpha.payloads.BreweryReq;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -33,7 +37,7 @@ public class Brewery extends DateAudit {
     private String phone;
 
     // Because the controller will always return beers along with the brewery, LAZY would be meaningless.
-    @OneToMany(mappedBy = "brewery", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brewery", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Beer> beers = new HashSet<>();
 
     @Builder
@@ -43,5 +47,13 @@ public class Brewery extends DateAudit {
         this.y = y;
         this.address = address;
         this.phone = phone;
+    }
+
+    public void updateBrewery(BreweryReq req) {
+        this.name = req.getName();
+        this.x = req.getX();
+        this.y = req.getY();
+        this.address = req.getAddress();
+        this.phone = req.getPhone();
     }
 }
