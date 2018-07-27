@@ -13,16 +13,20 @@ spring:
     username: root
     password: root
 
+server:
+  port: 8081
+
+app:
+  uploadPath: E:/alphafiles/
+
+management:
+  endpoints:
+    web:
+      base-path: /api/actuator
+
 #logging:
 #  level:
 #    org:
 #      hibernate:
 #        SQL: debug
 #        type: trace
-
-server:
-  port: 8081
-
-
-app:
-  uploadPath: E:/alphafiles/
