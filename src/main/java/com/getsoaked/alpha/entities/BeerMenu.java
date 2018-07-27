@@ -30,10 +30,10 @@ public class BeerMenu extends DateAudit {
 
     private float bottlePPM;
 
-    private int status;
+    private StatusType status;
 
     @Builder
-    public BeerMenu(CompositePK id, Beer beer, Place place, float draftPPM, float canPPM, float bottlePPM, int status) {
+    public BeerMenu(CompositePK id, Beer beer, Place place, float draftPPM, float canPPM, float bottlePPM, StatusType status) {
         this.id = id;
         this.beer = beer;
         this.place = place;

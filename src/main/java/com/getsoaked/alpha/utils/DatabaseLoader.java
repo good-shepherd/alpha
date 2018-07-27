@@ -23,6 +23,111 @@ public class DatabaseLoader implements CommandLineRunner {
         breweries();
         beers();
         places();
+        menus();
+    }
+
+    private void menus() {
+        Long place, beer;
+        place = 14l;
+        beer = 4l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(7000f/450f)
+                .build());
+        beer = 5l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(7000f/400f)
+                .build());
+        beer = 6l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(6000f/400f)
+                .build());
+        beer = 7l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(8000f/450f)
+                .build());
+        beer = 8l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(7000f/400f)
+                .build());
+        beer = 9l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(8000f/400f)
+                .build());
+        beer = 10l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(7000f/400f)
+                .build());
+        beer = 11l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(9000f/400f)
+                .build());
+        beer = 12l;
+        beerMenuRepository.save(BeerMenu.builder()
+                .id(CompositePK.builder()
+                        .placeId(place)
+                        .beerId(beer)
+                        .build())
+                .place(placeRepository.getOne(place))
+                .beer(beerRepository.getOne(beer))
+                .status(StatusType.AVAILABLE)
+                .draftPPM(7000f/450f)
+                .build());
     }
 
     private void places() {
@@ -33,6 +138,14 @@ public class DatabaseLoader implements CommandLineRunner {
                 .address("경기도 성남시 분당구 백현동 판교역로10번길 27")
                 .phone("031-703-9707")
                 .name("올드스탠드")
+                .build());
+        placeRepository.save(Place.builder()
+                .type(PlaceType.TASTING_ROOM)
+                .address("강원도 강릉시 경강로 1961")
+                .name("버드나무 브루어리")
+                .phone("033-920-9380")
+                .x(37.748122)
+                .y(128.884357)
                 .build());
     }
 

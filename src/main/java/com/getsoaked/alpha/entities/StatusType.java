@@ -3,12 +3,12 @@ package com.getsoaked.alpha.entities;
 import lombok.Getter;
 
 @Getter
-public enum PlaceType {
-    PUB(0), TASTING_ROOM(1), BAR(2), RESTAURANT(3);
+public enum StatusType {
+    AVAILABLE(0), SOLD_OUT(1);
 
     private int value;
 
-    PlaceType(int value) {
+    StatusType(int value) {
         this.value = value;
     }
 }

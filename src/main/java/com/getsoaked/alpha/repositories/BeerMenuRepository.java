@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BeerMenuRepository extends JpaRepository<BeerMenu, CompositePK> {
 
-    @Query(value = "SELECT * FROM beermenus B WHERE B.PLACE_ID = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM beermenus b WHERE b.place_id = ?1", nativeQuery = true)
     List<BeerMenu> getAllByPlaceId(Long id);
 
 }

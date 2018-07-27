@@ -1,19 +1,14 @@
 package com.getsoaked.alpha.controllers;
 
-import com.getsoaked.alpha.entities.Brewery;
+import com.getsoaked.alpha.Services.BreweryService;
 import com.getsoaked.alpha.payloads.BreweryReq;
 import com.getsoaked.alpha.payloads.BreweryRes;
-import com.getsoaked.alpha.repositories.BreweryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
@@ -22,34 +17,26 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/breweries")
 public class BreweryController {
 
-    BreweryRepository breweryRepository;
+    BreweryService breweryService;
 
-    @Transactional(readOnly = true)
     @GetMapping
     public List<BreweryRes> findAllBreweries() {
-        return breweryRepository.findAll().stream().map(BreweryRes::new).collect(Collectors.toList());
-    } // pagination
+        return breweryService.findAllBreweries();
+    }
 
-    @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public BreweryRes findOneBrewery(@PathVariable(value = "id") Long id) {
-        return new BreweryRes(breweryRepository.getOne(id));
+        return breweryService.findOneBrewery(id);
     }
 
-    @Transactional
     @PostMapping
     public ResponseEntity saveBrewery(@RequestBody BreweryReq req) {
-        Brewery brewery = breweryRepository.save(req.toEntity());
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/breweries/{id}")
-                .buildAndExpand(brewery.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(breweryService.saveBrewery(req)).build();
     }
 
-    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBrewery(@PathVariable(value = "id") Long id) {
-        breweryRepository.deleteById(id);
+        breweryService.deleteBrewery(id);
         return ResponseEntity.ok().build(); // should add description to body
     }
 

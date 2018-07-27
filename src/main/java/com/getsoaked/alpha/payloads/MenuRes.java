@@ -18,6 +18,6 @@ public class MenuRes {
         this.draftPPM = beerMenu.getDraftPPM();
         this.canPPM = beerMenu.getCanPPM();
         this.bottlePPM = beerMenu.getBottlePPM();
-        this.status = beerMenu.getStatus();
+        this.status = beerMenu.getStatus().getValue();
     }
 }

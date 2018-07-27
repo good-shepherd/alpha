@@ -1,9 +1,6 @@
 package com.getsoaked.alpha.payloads;
 
-import com.getsoaked.alpha.entities.Beer;
-import com.getsoaked.alpha.entities.BeerMenu;
-import com.getsoaked.alpha.entities.CompositePK;
-import com.getsoaked.alpha.entities.Place;
+import com.getsoaked.alpha.entities.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +12,7 @@ public class MenuReq {
     private float draftPPM;
     private float canPPM;
     private float bottlePPM;
-    private int status;
+    private StatusType status;
 
     public BeerMenu toEntity(Place place, Beer beer) {
         return BeerMenu.builder()
