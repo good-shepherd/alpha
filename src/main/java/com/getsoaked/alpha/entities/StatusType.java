@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum StatusType {
-    AVAILABLE(0), SOLD_OUT(1);
+    AVAILABLE(0), SOLD_OUT(1), ON_SALE(2);
 
     private int value;
 
