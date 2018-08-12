@@ -1,6 +1,6 @@
 package com.getsoaked.alpha.controllers;
 
-import com.getsoaked.alpha.Services.PlaceService;
+import com.getsoaked.alpha.services.PlaceService;
 import com.getsoaked.alpha.payloads.MenuReq;
 import com.getsoaked.alpha.payloads.MenuRes;
 import com.getsoaked.alpha.payloads.PlaceReq;
@@ -55,7 +55,7 @@ public class PlaceController {
 
     @PostMapping("/{id}/menu")
     public ResponseEntity saveMenuByPlaceId(@PathVariable(value = "id") Long id, @RequestBody MenuReq req) {
-        return ResponseEntity.created(placeService.saveMenuByPlaceId(id, req)).build();
+        return ResponseEntity.created(placeService. saveMenuByPlaceId(id, req)).build();
     }
 
     @DeleteMapping("/{id}/menu/{bid}")

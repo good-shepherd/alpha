@@ -1,6 +1,6 @@
 package com.getsoaked.alpha.controllers;
 
-import com.getsoaked.alpha.Services.BreweryService;
+import com.getsoaked.alpha.services.BreweryService;
 import com.getsoaked.alpha.payloads.BreweryReq;
 import com.getsoaked.alpha.payloads.BreweryRes;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.getsoaked.alpha.Services;
+package com.getsoaked.alpha.services;
 
 import com.getsoaked.alpha.entities.BeerMenu;
 import com.getsoaked.alpha.entities.CompositePK;

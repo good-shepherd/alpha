@@ -1,4 +1,4 @@
-package com.getsoaked.alpha.Services;
+package com.getsoaked.alpha.services;
 
 import com.getsoaked.alpha.entities.Beer;
 import com.getsoaked.alpha.payloads.BeerReq;
