@@ -1,4 +1,4 @@
-/*
+
 package com.getsoaked.alpha.utils;
 
 import com.getsoaked.alpha.entities.*;
@@ -240,4 +240,4 @@ public class DatabaseLoader implements CommandLineRunner {
                 .build());
     }
 }
-*/
+

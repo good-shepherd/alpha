@@ -48,6 +48,7 @@ public class PlaceController {
         return ResponseEntity.ok().build();
     }
 
+    // menus CRUD
     @GetMapping("/{id}/menu")
     public List<MenuRes> getMenuByPlaceId(@PathVariable(value = "id") Long id) {
         return placeService.getMenuByPlaceId(id);
@@ -55,7 +56,7 @@ public class PlaceController {
 
     @PostMapping("/{id}/menu")
     public ResponseEntity saveMenuByPlaceId(@PathVariable(value = "id") Long id, @RequestBody MenuReq req) {
-        return ResponseEntity.created(placeService. saveMenuByPlaceId(id, req)).build();
+        return ResponseEntity.created(placeService.saveMenuByPlaceId(id, req)).build();
     }
 
     @DeleteMapping("/{id}/menu/{bid}")

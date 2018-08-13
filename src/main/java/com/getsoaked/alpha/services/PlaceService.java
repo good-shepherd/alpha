@@ -2,13 +2,12 @@ package com.getsoaked.alpha.services;
 
 import com.getsoaked.alpha.entities.BeerMenu;
 import com.getsoaked.alpha.entities.CompositePK;
+import com.getsoaked.alpha.entities.MenuStatus;
 import com.getsoaked.alpha.entities.Place;
-import com.getsoaked.alpha.payloads.MenuReq;
-import com.getsoaked.alpha.payloads.MenuRes;
-import com.getsoaked.alpha.payloads.PlaceReq;
-import com.getsoaked.alpha.payloads.PlaceRes;
+import com.getsoaked.alpha.payloads.*;
 import com.getsoaked.alpha.repositories.BeerMenuRepository;
 import com.getsoaked.alpha.repositories.BeerRepository;
+import com.getsoaked.alpha.repositories.MenuStatusRepository;
 import com.getsoaked.alpha.repositories.PlaceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,7 @@ public class PlaceService {
     BeerMenuRepository beerMenuRepository;
     PlaceRepository placeRepository;
     BeerRepository beerRepository;
+    MenuStatusRepository menuStatusRepository;
 
     // this returns all of the info of place except menus.
     @Transactional(readOnly = true)
@@ -60,7 +60,7 @@ public class PlaceService {
     }
 
 
-    // menus
+    // menus CRUD
     @Transactional(readOnly = true)
     public List<MenuRes> getMenuByPlaceId(Long id) {
         return beerMenuRepository.getAllByPlaceId(id).stream().map(MenuRes::new).collect(Collectors.toList());
@@ -71,12 +71,21 @@ public class PlaceService {
         BeerMenu menu = beerMenuRepository.save(req.toEntity(
                 placeRepository.getOne(id),
                 beerRepository.getOne(req.getBeerId())
-        )); // three queries? really?
+        ));
+        List<BeerPackaging> packaging = req.getPackaging();
+        packaging.forEach(p -> menuStatusRepository.save(MenuStatus.builder()
+                .beerMenu(menu)
+                .ml(p.getMl())
+                .price(p.getPrice())
+                .serviceType(p.getType())
+                .build()));
+        // 6 queries? really? need to be optimize
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/places/{id}/menu")
                 .buildAndExpand(menu.getId().getPlaceId()).toUri();
         return location;
     }
+
     @Transactional
     public void deleteMenuById(Long id, Long bid) {
         beerMenuRepository.deleteById(CompositePK.builder()
