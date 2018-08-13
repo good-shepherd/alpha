@@ -15,7 +15,7 @@ public class MenuRes {
 
     public MenuRes(BeerMenu beerMenu) {
         this.beer = new BeerRes(beerMenu.getBeer());
-        this.draftPPM = beerMenu.getDraftPPM();
+        this.draftPPM = beerMenu.getMenuStatuses();
         this.canPPM = beerMenu.getCanPPM();
         this.bottlePPM = beerMenu.getBottlePPM();
         this.status = beerMenu.getStatus().getValue();

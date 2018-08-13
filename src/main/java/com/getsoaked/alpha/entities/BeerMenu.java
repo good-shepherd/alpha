@@ -3,12 +3,14 @@ package com.getsoaked.alpha.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "beermenus")
-public class BeerMenu extends DateAudit {
+public class BeerMenu {
 
     @EmbeddedId
     @AttributeOverrides({
@@ -24,7 +26,18 @@ public class BeerMenu extends DateAudit {
     @JoinColumn(name = "place_id", insertable = false, updatable = false)
     private Place place;
 
-    private float draftPPM;
+    @OneToMany(mappedBy = "beerMenu", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<MenuStatus> menuStatuses = new HashSet<>();
+
+    @Builder
+    public BeerMenu(CompositePK id, Beer beer, Place place, Set<MenuStatus> menuStatuses) {
+        this.id = id;
+        this.beer = beer;
+        this.place = place;
+        this.menuStatuses = menuStatuses;
+    }
+
+    /*private float draftPPM;
 
     private float canPPM;
 
@@ -41,5 +54,5 @@ public class BeerMenu extends DateAudit {
         this.canPPM = canPPM;
         this.bottlePPM = bottlePPM;
         this.status = status;
-    }
+    }*/
 }

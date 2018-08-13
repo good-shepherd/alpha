@@ -59,6 +59,8 @@ public class PlaceService {
         placeRepository.deleteById(id);
     }
 
+
+    // menus
     @Transactional(readOnly = true)
     public List<MenuRes> getMenuByPlaceId(Long id) {
         return beerMenuRepository.getAllByPlaceId(id).stream().map(MenuRes::new).collect(Collectors.toList());
