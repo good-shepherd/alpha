@@ -2,13 +2,14 @@
 package com.getsoaked.alpha.utils;
 
 import com.getsoaked.alpha.entities.*;
-import com.getsoaked.alpha.repositories.BeerMenuRepository;
-import com.getsoaked.alpha.repositories.BeerRepository;
-import com.getsoaked.alpha.repositories.BreweryRepository;
-import com.getsoaked.alpha.repositories.PlaceRepository;
+import com.getsoaked.alpha.payloads.BeerPackaging;
+import com.getsoaked.alpha.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Component
@@ -18,6 +19,7 @@ public class DatabaseLoader implements CommandLineRunner {
     BeerRepository beerRepository;
     BeerMenuRepository beerMenuRepository;
     PlaceRepository placeRepository;
+    MenuStatusRepository menuStatusRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -27,108 +29,29 @@ public class DatabaseLoader implements CommandLineRunner {
         menus();
     }
 
-    private void menus() {
-        Long place, beer;
-        place = 14l;
-        beer = 4l;
-        beerMenuRepository.save(BeerMenu.builder()
+    private void uploadDummyBeers(Long place, Long beer, List<BeerPackaging> packaging) {
+        BeerMenu menu = beerMenuRepository.save(BeerMenu.builder()
                 .id(CompositePK.builder()
                         .placeId(place)
                         .beerId(beer)
                         .build())
                 .place(placeRepository.getOne(place))
                 .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(7000f/450f)
                 .build());
-        beer = 5l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(7000f/400f)
-                .build());
-        beer = 6l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(6000f/400f)
-                .build());
-        beer = 7l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(8000f/450f)
-                .build());
-        beer = 8l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(7000f/400f)
-                .build());
-        beer = 9l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(8000f/400f)
-                .build());
-        beer = 10l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(7000f/400f)
-                .build());
-        beer = 11l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(9000f/400f)
-                .build());
-        beer = 12l;
-        beerMenuRepository.save(BeerMenu.builder()
-                .id(CompositePK.builder()
-                        .placeId(place)
-                        .beerId(beer)
-                        .build())
-                .place(placeRepository.getOne(place))
-                .beer(beerRepository.getOne(beer))
-                .status(StatusType.AVAILABLE)
-                .draftPPM(7000f/450f)
-                .build());
+        packaging.forEach(p -> menuStatusRepository.save(MenuStatus.builder()
+                .beerMenu(menu)
+                .ml(p.getMl())
+                .price(p.getPrice())
+                .serviceType(p.getType())
+                .build()));
+    }
+
+    private List<BeerPackaging> makePackageList(BeerPackaging... packs) {
+        List<BeerPackaging> list = new ArrayList<>();
+        for (BeerPackaging b : packs) {
+            list.add(b);
+        }
+        return list;
     }
 
     private void places() {
@@ -214,6 +137,111 @@ public class DatabaseLoader implements CommandLineRunner {
                 .name("대굴령 페일 에일")
                 .type(BeerType.PALE_ALE)
                 .build());
+    }
+
+    private void menus() {
+        uploadDummyBeers(13l, 4l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.TAP)
+                                .price(5000)
+                                .ml(350)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.BOTTLE)
+                                .price(12000)
+                                .ml(750)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.CAN)
+                                .price(8000)
+                                .ml(500)
+                                .build()
+
+                ));
+        uploadDummyBeers(13l, 5l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.TAP)
+                                .price(3000)
+                                .ml(350)
+                                .build()
+                ));
+        uploadDummyBeers(13l, 6l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.BOTTLE)
+                                .price(1200)
+                                .ml(100)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.CAN)
+                                .price(3000)
+                                .ml(250)
+                                .build()
+
+                ));
+        uploadDummyBeers(14l, 7l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.TAP)
+                                .price(4000)
+                                .ml(350)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.BOTTLE)
+                                .price(20000)
+                                .ml(750)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.CAN)
+                                .price(8000)
+                                .ml(500)
+                                .build()
+
+                ));
+        uploadDummyBeers(14l, 8l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.CAN)
+                                .price(7000)
+                                .ml(350)
+                                .build()
+
+                ));
+        uploadDummyBeers(14l, 9l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.TAP)
+                                .price(10000)
+                                .ml(700)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.BOTTLE)
+                                .price(7000)
+                                .ml(500)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.CAN)
+                                .price(5000)
+                                .ml(350)
+                                .build()
+
+                ));
+        uploadDummyBeers(14l, 10l,
+                makePackageList(
+                        BeerPackaging.builder()
+                                .type(ServiceType.TAP)
+                                .price(8000)
+                                .ml(500)
+                                .build(),
+                        BeerPackaging.builder()
+                                .type(ServiceType.BOTTLE)
+                                .price(20000)
+                                .ml(1000)
+                                .build()
+
+                ));
     }
 
     private void breweries() {

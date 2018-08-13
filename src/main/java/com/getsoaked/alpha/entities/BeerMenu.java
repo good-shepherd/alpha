@@ -1,6 +1,9 @@
 package com.getsoaked.alpha.entities;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,23 +39,4 @@ public class BeerMenu {
         this.place = place;
         this.menuStatuses = menuStatuses;
     }
-
-    /*private float draftPPM;
-
-    private float canPPM;
-
-    private float bottlePPM;
-
-    private StatusType status;
-
-    @Builder
-    public BeerMenu(CompositePK id, Beer beer, Place place, float draftPPM, float canPPM, float bottlePPM, StatusType status) {
-        this.id = id;
-        this.beer = beer;
-        this.place = place;
-        this.draftPPM = draftPPM;
-        this.canPPM = canPPM;
-        this.bottlePPM = bottlePPM;
-        this.status = status;
-    }*/
 }
