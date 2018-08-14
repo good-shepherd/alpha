@@ -61,19 +61,11 @@ public class PlaceService {
 
 
     // menus CRUD
+    // TODO: need to be optimized (too many queries)
+    // TODO: update method
     @Transactional(readOnly = true)
     public List<MenuRes> getMenuByPlaceId(Long id) {
-        List<BeerMenu> bm = beerMenuRepository.getAllByPlaceId(id);
-        System.out.println("=====================================================");
-        for (BeerMenu beerMenu : bm) {
-            beerMenu.getMenuStatuses().forEach(o -> System.out.println(o.getPrice()));
-        }
-        System.out.println("=====================================================");
-        List<MenuRes> mr = bm.stream().map(MenuRes::new).collect(Collectors.toList());
-        System.out.println("=====================================================");
-        mr.forEach(o -> System.out.println(o.getBeer().getName()));
-        System.out.println("=====================================================");
-        return null;
+        return beerMenuRepository.getAllByPlaceId(id).stream().map(MenuRes::new).collect(Collectors.toList());
     }
 
     @Transactional
@@ -89,7 +81,6 @@ public class PlaceService {
                 .price(p.getPrice())
                 .serviceType(p.getType())
                 .build()));
-        // 6 queries? really? need to be optimize
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/places/{id}/menu")
                 .buildAndExpand(menu.getId().getPlaceId()).toUri();

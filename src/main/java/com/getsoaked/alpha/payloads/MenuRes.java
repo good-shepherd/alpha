@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -14,5 +15,6 @@ public class MenuRes {
 
     public MenuRes(BeerMenu beerMenu) {
         this.beer = new BeerRes(beerMenu.getBeer());
+        this.packaging = beerMenu.getMenuStatuses().stream().map(BeerPackaging::new).collect(Collectors.toList());
     }
 }
